@@ -1,0 +1,11 @@
+.DS_Store
+node_modules/
+npm-debug.log
+.idea
+dist
+yarn.lock
+backend/node_modules/
+frontend/node_modules/
+frontend/dist/
+backend/yarn.lock
+frontend/yarn.lock

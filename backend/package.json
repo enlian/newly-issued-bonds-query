@@ -1,0 +1,10 @@
+{
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.3",
+    "crypto": "^1.0.1",
+    "lodash": "^4.17.15",
+    "moment": "^2.24.0",
+    "puppeteer-core": "^2.0.0",
+    "superagent": "^5.1.2"
+  }
+}
