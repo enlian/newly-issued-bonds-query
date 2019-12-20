@@ -11,3 +11,4 @@ backend/yarn.lock
 frontend/yarn.lock
 /backend/yarn-error.log
 /frontend/yarn-error.log
+/frontend/static/data.txt
