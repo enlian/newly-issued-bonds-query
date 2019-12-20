@@ -23,7 +23,7 @@
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
-        <p class="footer">Code By 稳，只为让你更早知道真相<br/>仅供个人使用，请勿用于商业用途</p>
+        <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>合作联系：651754835@qq.com</p>
     </div>
 </template>
 
@@ -161,6 +161,6 @@
         position: absolute;
         bottom: 1em;
         color: #ccc;
-        font-size: 0.8em;
+        font-size: 0.7em;
     }
 </style>
