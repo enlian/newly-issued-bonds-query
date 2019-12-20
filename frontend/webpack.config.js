@@ -60,7 +60,7 @@ module.exports = (options = {}) => ({
     port: 8010,
     proxy: {
       '/api/': {
-        target: 'http://60.frp.easyder.com',
+        target: '127.0.0.1',
         changeOrigin: true,
         pathRewrite: {
           '^/api': ''

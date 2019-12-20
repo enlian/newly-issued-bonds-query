@@ -28,50 +28,32 @@
 
 <script>
     import moment from 'moment'
-    import data from './../static/data'
     import _ from 'lodash';
+    const crypto = require('crypto');
+
+    const key = 'j38dsg`hsj9-201!ush`jd832u_j04384rh`sk2937h!ns8';
+
+    //解密
+    function aesDecrypt(encrypted, key) {
+        const decipher = crypto.createDecipher('aes192', key);
+        let decrypted = decipher.update(encrypted, 'hex', 'utf8');
+        decrypted += decipher.final('utf8');
+        return decrypted;
+    }
 
     export default {
         data() {
             return {
                 data: null,
                 loading: true,
-                list:null
+                list:null,
             }
         },
         mounted() {
             // this.getData();
             this.getLocalData();
-            // this.getListNum();
         },
         methods: {
-            //获取昨天打的债券列表
-            getList(){
-                let _t = new Date().getTime();
-
-                this.$axios
-                    .get(`http://data.10jqka.com.cn/ipo/kzz/?t=${_t}`)
-                    .then(res => {
-                        if(_.get(res,'data.status_code')===0){
-                            let yesterday = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
-                            const list = _.find(res.data.list,['sub_date',yesterday]);
-                            console.log(list)
-                            this.list = list;
-                        }
-                    }).catch(() => {
-                }).finally(() => {
-                })
-            },
-            //获取昨天打的债券中签号
-            getListNum(){
-                this.$axios
-                    .get(`http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=KZZ_ZQH&token=70f12f2f4f091e459a279469fe49eca5&filter=(BONDCODE=%27128086%27)`)
-                    .then(res => {
-
-                    }).catch(() => {
-                }).finally(() => {
-                })
-            },
             onClear(index){
                 this.$set(this.data, index, {...this.data[index], active: null});
             },
@@ -92,28 +74,21 @@
             getLocalData() {
                 // let _t = new Date().getTime();
                 //
-                // this.$http.get(`/static/data.txt?t=${_t}`).then(res => {
-                //     this.dealData(res.bodyText)
+                // this.$http.get(`/data.txt?t=${_t}`).then(res => {
+                //     this.dealData(aesDecrypt(res.bodyText,key))
                 // })
-                this.dealData(data)
+
+                this.dealData(aesDecrypt(zqData,key))
             },
             dealData(response) {
-                // response = response.replace(/\s*/g, "");
-                // response = eval('(' + response + ')');
-                let data = [];
-                Object.keys(response).forEach((key) => {
-                    data.push({
-                        name: key,
-                        values: response[key]
-                    })
-                });
-                this.data = data;
+                response = JSON.parse(response);
+                console.log(response)
+                this.data = response;
                 this.loading = false;
             },
             check(index, value = '0') {
                 value = value.toString();
                 let data = this.data[index].values;
-                data = data.split(",");
                 for (let i = 0; i < data.length; i++) {
                     let newValue = value;
                     let newI = data[i];

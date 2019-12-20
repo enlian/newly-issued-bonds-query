@@ -33,7 +33,6 @@ function getNums(token, code) {
                 _.map(res, (i) => {
                     nums = nums.concat(i.LUCKNUM.split(','))
                 });
-                console.log(nums)
                 res = {
                     name: res[0].SNAME,
                     values: nums
@@ -87,8 +86,14 @@ superagent.get(reptileUrl).end(function (err, res) {
         res = JSON.parse(res.text);
 
         if (_.get(res, 'status_code') === 0) {
-            let yesterday = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
-            const list = _.filter(res.list, ['sub_date', yesterday]);
+            let day1 = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
+            let day2 = moment(new Date()).add(-2, 'days').format('YYYY-MM-DD');
+            let day3 = moment(new Date()).add(-3, 'days').format('YYYY-MM-DD');
+
+            const list = _.filter(res.list, (i)=>{
+                const date = i.sub_date;
+                return date===day1||date===day2||date===day3
+            });
             const promiseArray = [];
             _.map(list, (i) => {
                 promiseArray.push(getNums(token, i.bond_code));
@@ -106,7 +111,10 @@ superagent.get(reptileUrl).end(function (err, res) {
 
 
 function writeFile(data) {
-    fs.writeFile(__dirname + '/data.json', aesEncrypt(JSON.stringify(data),key), function (err) {
+    console.log(data);
+    data = `var zqData = "${aesEncrypt(JSON.stringify(data),key)}"`;
+
+    fs.writeFile( '../frontend/dist/static/data.js', data, function (err) {
         if (err) {
             console.log(err);
             return false;

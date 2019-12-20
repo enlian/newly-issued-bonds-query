@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --hot --env.dev",
-    "build": "rimraf dist && webpack -p --progress --hide-modules"
+    "build": "rimraf dist && webpack -p --progress --hide-modules && node fileCopy.js"
   },
   "dependencies": {
     "axios": "^0.19.0",
+    "copy-dir": "^1.2.0",
+    "crypto": "^1.0.1",
     "element-ui": "^2.3.4",
     "lodash": "^4.17.15",
     "moment": "^2.24.0",
