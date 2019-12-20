@@ -6,6 +6,7 @@
                 <el-form-item :label='item.name'>
                     <el-input :clearable=true
                               minlength='4'
+                              maxlength="14"
                               v-model="item.inputValue" :placeholder='"请输入"+item.name+"配号"'
                               @input="onClear(index)"
                               @clear="onClear(index)"
@@ -124,6 +125,10 @@
         font-family: Helvetica, sans-serif;
         text-align: center;
         padding-top: 2em;
+    }
+
+    .el-input__inner{
+        padding-right: 0!important;
     }
 
     .title {
