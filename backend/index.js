@@ -125,9 +125,9 @@ superagent.get(reptileUrl).end(function (err, res) {
 
 function writeFile(data) {
     console.log(data);
-    data = `var zqData = "${aesEncrypt(JSON.stringify(data),key)}"`;
+    data = aesEncrypt(JSON.stringify(data),key);
 
-    fs.writeFile( '../../etf-dist/static/data.js', data, function (err) {
+    fs.writeFile( '../../etf-dist/static/data.txt', data, function (err) {
         if (err) {
             console.log(err);
             return false;
