@@ -116,6 +116,8 @@
     body {
         /*background: #909399;*/
         overflow: hidden;
+        margin: 0;
+        padding: 0;
     }
 
     #app {

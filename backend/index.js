@@ -132,6 +132,14 @@ function writeFile(data) {
             console.log(err);
             return false;
         }
-        console.log('写入完成');
+        console.log('写入完成: etf-dist/static/data.txt');
+    });
+
+    fs.writeFile( '../frontend/static/data.txt', data, function (err) {
+        if (err) {
+            console.log(err);
+            return false;
+        }
+        console.log('写入完成: frontend/static/data.txt');
     });
 }
