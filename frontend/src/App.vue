@@ -42,6 +42,16 @@
         return decrypted;
     }
 
+    //简单数字测试
+    function isContinuationInteger(arr){
+        arr = arr.split('');
+        if (!(arr instanceof Array) || arr.length <= 1) return false;
+        for (var i = 1, len = arr.length; i < len; i++) {
+            if (((+arr[i - 1] + 1) % 10) !== +arr[i]) return false;
+        }
+        return true;
+    }
+
     export default {
         data() {
             return {
@@ -87,8 +97,15 @@
                 this.loading = false;
             },
             check(index, value = '0') {
+                if(value.length<4||isContinuationInteger(value)){
+                    //一定没中签
+                    this.$set(this.data, index, {...this.data[index], active: false});
+                    return;
+                }
+
                 value = value.toString();
                 let data = this.data[index].values;
+
                 for (let i = 0; i < data.length; i++) {
                     let newValue = value;
                     let newI = data[i];
