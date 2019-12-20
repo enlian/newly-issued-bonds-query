@@ -1,6 +1,6 @@
 let copydir = require('copy-dir');
 
-copydir.sync(process.cwd() + '/static', process.cwd() + '/dist/static', {
+copydir.sync(process.cwd() + '/static', '../../etf-dist/static', {
     utimes: true,
     mode: true,
     cover: true

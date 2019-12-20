@@ -10,7 +10,7 @@ module.exports = (options = {}) => ({
     index: './src/main.js'
   },
   output: {
-    path: resolve(__dirname, 'dist'),
+    path: resolve('../../etf-dist'),
     filename: options.dev ? '[name].js' : '[name].js?[chunkhash]',
     chunkFilename: '[id].js?[chunkhash]',
     publicPath: options.dev ? '/assets/' : publicPath
@@ -46,7 +46,7 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
-      favicon: './static/favicon.ico',//favicon路径
+      // favicon: './static/favicon.ico',//favicon路径
     })
   ],
   resolve: {
