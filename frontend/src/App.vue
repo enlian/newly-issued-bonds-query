@@ -7,13 +7,17 @@
                     <el-input :clearable=true
                               minlength='4'
                               maxlength="14"
-                              v-model="item.inputValue" :placeholder='"请输入"+item.name+"配号"'
+                              :readonly='data[index].values.length===0'
+                              v-model="item.inputValue" :placeholder='"请输入起始配号"'
                               @input="onClear(index)"
                               @clear="onClear(index)"
                     ></el-input>
                 </el-form-item>
                 <el-form-item>
-                    <el-button :type="item.active?'danger':(item.active===false&&item.inputValue?'warning':'primary')"
+                    <el-button
+                            :disabled='data[index].values.length===0'
+                            :type="item.active?'danger':(item.active===false&&item.inputValue?'warning':
+                            (data[index].values.length===0?'info':'primary'))"
                                @click="check(index,item.inputValue)">
                         {{item.active?'中签':(item.active===false&&item.inputValue?'没中':'查询')}}
                     </el-button>
@@ -136,12 +140,13 @@
         overflow: hidden;
         margin: 0;
         padding: 0;
+        padding-left: 0.6em;
     }
 
     #app {
         font-family: Helvetica, sans-serif;
         text-align: center;
-        padding-top: 2.4em;
+        padding-top: 3em;
     }
 
     .el-input__inner{

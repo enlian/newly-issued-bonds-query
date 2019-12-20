@@ -37,6 +37,7 @@ function getNums(token, code) {
 
                     _.map(res, (i) => {
                         nums = nums.concat(i.LUCKNUM.split(','))
+                        nums = _.compact(nums)
                     });
                     res = {
                         name: res[0].SNAME,
