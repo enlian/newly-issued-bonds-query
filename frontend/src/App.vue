@@ -82,7 +82,6 @@
             },
             dealData(response) {
                 response = JSON.parse(response);
-                console.log(response)
                 this.data = response;
                 this.loading = false;
             },

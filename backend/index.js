@@ -22,24 +22,36 @@ function aesEncrypt(data, key) {
 //拿中签数据
 function getNums(token, code) {
     return new Promise(function (resolve, reject) {
-        return superagent.get(`http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=KZZ_ZQH&token=${token}&filter=(BONDCODE=%27${code}%27)`)
-            .end(function (err, res) {
-                if (res && res.text) {
-                    res = res.text;
-                }
-                res = JSON.parse(res);
-                let nums = [];
-
-                _.map(res, (i) => {
-                    nums = nums.concat(i.LUCKNUM.split(','))
-                });
-                res = {
-                    name: res[0].SNAME,
-                    values: nums
-                };
-
-                resolve(res);
+        const url = `http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=KZZ_ZQH&token=${token}&filter=(BONDCODE=%27${code}%27)`;
+        return superagent.get(url)
+            .timeout({
+                response: 5000,  // Wait 5 seconds for the server to start sending,
+                deadline: 10000, // but allow 1 minute for the file to finish loading.
             })
+            .end(function (err, res) {
+                if(res && res.ok && res.status===200){
+                    res = res.text;
+
+                    res = JSON.parse(res);
+                    let nums = [];
+
+                    _.map(res, (i) => {
+                        nums = nums.concat(i.LUCKNUM.split(','))
+                    });
+                    res = {
+                        name: res[0].SNAME,
+                        values: nums
+                    };
+                    setTimeout(()=>{
+                        resolve(res);
+                    },500)
+                }else{
+                    console.error('网页挂了或超时',err);
+                    reject(null);
+                }
+            })
+    }).catch((e)=>{
+        console.log('程序出错',e)
     });
 }
 
@@ -100,7 +112,8 @@ superagent.get(reptileUrl).end(function (err, res) {
             });
 
             Promise.all(promiseArray).then(function (results) {
-                writeFile(results);
+                results = _.compact(results);
+                results && writeFile(results);
             });
 
 
@@ -114,7 +127,7 @@ function writeFile(data) {
     console.log(data);
     data = `var zqData = "${aesEncrypt(JSON.stringify(data),key)}"`;
 
-    fs.writeFile( '../frontend/dist/static/data.js', data, function (err) {
+    fs.writeFile( '../../etf-dist/static/data.js', data, function (err) {
         if (err) {
             console.log(err);
             return false;
