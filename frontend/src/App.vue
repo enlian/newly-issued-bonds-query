@@ -141,7 +141,7 @@
     #app {
         font-family: Helvetica, sans-serif;
         text-align: center;
-        padding-top: 2em;
+        padding-top: 2.4em;
     }
 
     .el-input__inner{
