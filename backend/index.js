@@ -44,7 +44,7 @@ function getNums(token, code) {
                     };
                     setTimeout(()=>{
                         resolve(res);
-                    },500)
+                    },3000)
                 }else{
                     console.error('网页挂了或超时',err);
                     reject(null);
