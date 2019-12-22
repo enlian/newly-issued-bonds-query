@@ -1,29 +1,52 @@
 <template>
     <div id="app">
-        <!-- <p class="title">输入配号查询是否中签</p>-->
-        <el-form :inline="true" v-if="!loading && data">
-            <div v-for="(item, index) in data">
-                <el-form-item :label='item.name'>
+         <p class="title">输入配号查询是否中签，默认顶格申购，1000个配号</p>
+        <el-table
+                :data="data"
+                stripe
+                style="width: 100%">
+            <el-table-column
+                    label='名字'
+                    prop="name"
+            >
+            </el-table-column>
+            <el-table-column
+                    label="起始配号"
+                    prop="inputValue"
+                    width="110"
+            >
+                <template slot-scope="scope">
                     <el-input :clearable=true
                               minlength='4'
                               maxlength="14"
-                              :readonly='data[index].values.length===0'
-                              v-model="item.inputValue" :placeholder='"请输入起始配号"'
-                              @input="onClear(index)"
-                              @clear="onClear(index)"
+                              :readonly='scope.row.values.length===0'
+                              v-model="scope.row.inputValue" :placeholder='"输入配号"'
+                              @input="onClear(scope.$index)"
+                              @clear="onClear(scope.$index)"
                     ></el-input>
-                </el-form-item>
-                <el-form-item>
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="中签率"
+                    prop="successRate"
+            >
+                <template slot-scope="scope">
+                    {{scope.row.successRate>0?(scope.row.successRate*1000).toFixed(2)+'%':'没出'}}
+                </template>
+            </el-table-column>
+            <el-table-column
+                    label="操作">
+                <template slot-scope="scope">
                     <el-button
-                            :disabled='data[index].values.length===0'
-                            :type="item.active?'danger':(item.active===false&&item.inputValue?'warning':
-                            (data[index].values.length===0?'info':'primary'))"
-                               @click="check(index,item.inputValue)">
-                        {{item.active?'中签':(item.active===false&&item.inputValue?'没中':'查询')}}
+                            :disabled='scope.row.values.length===0'
+                            :type="scope.row.active?'danger':(scope.row.active===false&&scope.row.inputValue?'warning':
+                            (scope.row.values.length===0?'info':'primary'))"
+                            @click="check(scope.$index,scope.row.inputValue)">
+                        {{scope.row.active?'中签':(scope.row.active===false&&scope.row.inputValue?'没中':'查询')}}
                     </el-button>
-                </el-form-item>
-            </div>
-        </el-form>
+                </template>
+            </el-table-column>
+        </el-table>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
@@ -34,6 +57,7 @@
 <script>
     import moment from 'moment'
     import _ from 'lodash';
+
     const crypto = require('crypto');
 
     const key = 'j38dsg`hsj9-201!ush`jd832u_j04384rh`sk2937h!ns8';
@@ -47,7 +71,7 @@
     }
 
     //简单数字测试
-    function isContinuationInteger(arr){
+    function isContinuationInteger(arr) {
         arr = arr.split('');
         if (!(arr instanceof Array) || arr.length <= 1) return false;
         for (var i = 1, len = arr.length; i < len; i++) {
@@ -61,7 +85,7 @@
             return {
                 data: null,
                 loading: true,
-                list:null,
+                list: null,
             }
         },
         mounted() {
@@ -69,7 +93,7 @@
             this.getLocalData();
         },
         methods: {
-            onClear(index){
+            onClear(index) {
                 this.$set(this.data, index, {...this.data[index], active: null});
             },
             getData() {
@@ -90,7 +114,7 @@
                 let _t = new Date().getTime();
 
                 this.$http.get(`./static/data.txt?t=${_t}`).then(res => {
-                    this.dealData(aesDecrypt(res.bodyText,key))
+                    this.dealData(aesDecrypt(res.bodyText, key))
                 })
 
                 // this.dealData(aesDecrypt(zqData,key))
@@ -101,7 +125,7 @@
                 this.loading = false;
             },
             check(index, value = '0') {
-                if(value.length<4||isContinuationInteger(value)){
+                if (value.length < 4 || isContinuationInteger(value)) {
                     //一定没中签
                     this.$set(this.data, index, {...this.data[index], active: false});
                     return;
@@ -140,7 +164,6 @@
         overflow: hidden;
         margin: 0;
         padding: 0;
-        padding-left: 0.6em;
     }
 
     #app {
@@ -149,15 +172,18 @@
         padding-top: 3em;
     }
 
-    .el-input__inner{
-        padding-right: 0!important;
+    .el-input__inner {
+        padding-right: 0 !important;
+        padding-left: 5px !important;
     }
 
     .title {
         color: #606266;
-        font-size: 1.1em;
+        font-size: 0.8em;
         margin-bottom: 1.1em;
         line-height: 2em;
+        text-align: left;
+        padding-left: 1em;
     }
 
     .footer {

@@ -39,7 +39,7 @@ exports.run = function () {
                 });
                 const promiseArray = [];
                 _.map(list, (i) => {
-                    promiseArray.push(getNums(token, i.bond_code));
+                    promiseArray.push(getNums(token, i.bond_code,i.success_rate));
                 });
 
                 Promise.all(promiseArray).then(function (results) {
@@ -83,7 +83,7 @@ function aesEncrypt(data, key) {
 }
 
 //拿中签数据
-function getNums(token, code) {
+function getNums(token, code,successRate) {
     return new Promise(function (resolve, reject) {
         const url = `http://dcfm.eastmoney.com/em_mutisvcexpandinterface/api/js/get?type=KZZ_ZQH&token=${token}&filter=(BONDCODE=%27${code}%27)`;
         return superagent.get(url)
@@ -96,6 +96,7 @@ function getNums(token, code) {
                     res = res.text;
 
                     res = JSON.parse(res);
+
                     let nums = [];
 
                     _.map(res, (i) => {
@@ -104,7 +105,8 @@ function getNums(token, code) {
                     });
                     res = {
                         name: res[0].SNAME,
-                        values: nums
+                        values: nums,
+                        successRate:successRate
                     };
                     setTimeout(() => {
                         resolve(res);
