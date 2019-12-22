@@ -1,19 +1,20 @@
 <template>
     <div id="app">
-         <p class="title">输入配号查询是否中签，默认顶格申购，1000个配号</p>
+<!--         <p class="title">输入配号查询是否中签，默认1000个配号</p>-->
         <el-table
                 :data="data"
                 stripe
-                style="width: 100%">
+                style="padding-left: 10px;padding-right: 10px">
             <el-table-column
                     label='名字'
                     prop="name"
+                    width="80"
             >
             </el-table-column>
             <el-table-column
                     label="起始配号"
                     prop="inputValue"
-                    width="110"
+                    width="120"
             >
                 <template slot-scope="scope">
                     <el-input :clearable=true
@@ -29,6 +30,7 @@
             <el-table-column
                     label="中签率"
                     prop="successRate"
+                    width="70"
             >
                 <template slot-scope="scope">
                     {{scope.row.successRate>0?(scope.row.successRate*1000).toFixed(2)+'%':'没出'}}
@@ -38,6 +40,7 @@
                     label="操作">
                 <template slot-scope="scope">
                     <el-button
+                            size="small"
                             :disabled='scope.row.values.length===0'
                             :type="scope.row.active?'danger':(scope.row.active===false&&scope.row.inputValue?'warning':
                             (scope.row.values.length===0?'info':'primary'))"
@@ -47,6 +50,8 @@
                 </template>
             </el-table-column>
         </el-table>
+
+        <P class="desc">PS：默认顶格申购，配号数1000个</P>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
@@ -169,7 +174,7 @@
     #app {
         font-family: Helvetica, sans-serif;
         text-align: center;
-        padding-top: 3em;
+        padding-top: 2em;
     }
 
     .el-input__inner {
@@ -179,11 +184,19 @@
 
     .title {
         color: #606266;
-        font-size: 0.8em;
-        margin-bottom: 1.1em;
+        font-size: 1em;
+        margin-bottom: 1em;
         line-height: 2em;
         text-align: left;
         padding-left: 1em;
+        padding-top: 1em;
+    }
+
+    .desc{
+        color: #ccc;
+        font-size: 0.8em;
+        text-align: left;
+        padding-left: 15px;
     }
 
     .footer {
