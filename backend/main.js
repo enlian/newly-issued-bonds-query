@@ -55,6 +55,10 @@ exports.run = function () {
 
 function writeFile(data) {
     console.log(data);
+    const valueLength = _.filter(data,(i)=>{
+        return i && i.values && i.values.length>0;
+    }).length;
+    console.log(`拿到数据${valueLength}/${data.length}`);
     data = aesEncrypt(JSON.stringify(data), key);
 
     fs.writeFile('../../etf-dist/static/data.txt', data, function (err) {

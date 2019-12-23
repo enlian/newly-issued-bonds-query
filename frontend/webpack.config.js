@@ -46,8 +46,15 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeAttributeQuotes: true
+        // more options:
+        // https://github.com/kangax/html-minifier#options-quick-reference
+      },
       // favicon: './static/favicon.ico',//favicon路径
-    })
+    }),
   ],
   resolve: {
     alias: {
