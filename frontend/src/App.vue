@@ -118,11 +118,11 @@
             getLocalData() {
                 let _t = new Date().getTime();
 
-                this.$http.get(`./static/data.txt?t=${_t}`).then(res => {
-                    this.dealData(aesDecrypt(res.bodyText, key))
-                })
+                // this.$http.get(`./static/data.txt?t=${_t}`).then(res => {
+                //     this.dealData(aesDecrypt(res.bodyText, key))
+                // })
 
-                // this.dealData(aesDecrypt(zqData,key))
+                this.dealData(aesDecrypt(zqData,key))
             },
             dealData(response) {
                 response = JSON.parse(response);

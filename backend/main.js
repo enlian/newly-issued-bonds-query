@@ -60,21 +60,22 @@ function writeFile(data) {
     }).length;
     console.log(`拿到数据${valueLength}/${data.length}`);
     data = aesEncrypt(JSON.stringify(data), key);
+    data = `var zqData = "${data}";`;
 
-    fs.writeFile('../../etf-dist/static/data.txt', data, function (err) {
+    fs.writeFile('../../etf-dist/static/data.js', data, function (err) {
         if (err) {
             console.log(err);
             return false;
         }
-        console.log('写入完成: etf-dist/static/data.txt');
+        console.log('写入完成: etf-dist/static/data.js');
     });
 
-    fs.writeFile('../frontend/static/data.txt', data, function (err) {
+    fs.writeFile('../frontend/static/data.js', data, function (err) {
         if (err) {
             console.log(err);
             return false;
         }
-        console.log('写入完成: frontend/static/data.txt');
+        console.log('写入完成: frontend/static/data.js');
     });
 }
 
