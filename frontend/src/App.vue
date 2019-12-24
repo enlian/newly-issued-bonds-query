@@ -83,13 +83,12 @@
             <p>如果这个小工具能对您有帮助，欢迎收藏并推荐给朋友使用。</p>
             <p>我们会继续完善功能，优化体验，谢谢您的打赏！</p>
 
-            <span>微信:</span>
-            <img src="/static/wx.jpg" class="code"/>
+            <span style="display: block">微信:</span>
+            <img src="/static/wx.JPG" class="code" style="width: 200px;height: 200px;"/>
             <br>
             <br>
-            <br>
-            <span>支付宝:</span>
-            <img src="/static/zfb.jpg" class="code"/>
+            <span style="display: block">支付宝:</span>
+            <img src="/static/zfb.jpeg" class="code" style="width: 205px;height: 205px;"/>
 
         </el-dialog>
 
