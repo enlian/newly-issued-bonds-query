@@ -2,6 +2,7 @@
     <div id="app">
 <!--         <p class="title">输入配号查询是否中签，默认1000个配号</p>-->
         <el-table
+                v-loading="loading"
                 :data="data"
                 stripe
                 style="padding-left: 10px;padding-right: 10px">
@@ -127,7 +128,10 @@
             dealData(response) {
                 response = JSON.parse(response);
                 this.data = response;
-                this.loading = false;
+                setTimeout(()=>{
+                    this.loading = false;
+
+                },2000)
             },
             check(index, value = '0') {
                 if (value.length < 4 || isContinuationInteger(value)) {
