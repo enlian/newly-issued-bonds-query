@@ -176,6 +176,8 @@
                 this.loading = false;
             },
             check(index, value = '0') {
+                let num = 0;
+
                 if (value.length < 4 || isContinuationInteger(value)) {
                     //一定没中签
                     this.$set(this.data, index, {...this.data[index], active: false});
@@ -184,6 +186,7 @@
 
                 value = value.toString();
                 let data = this.data[index].values;
+                let luckIndex = 0;
 
                 for (let i = 0; i < data.length; i++) {
                     let newValue = value;
@@ -197,12 +200,24 @@
 
                     newValue = parseInt(newValue);
                     newI = parseInt(newI);
+                    luckIndex=index;
                     if (newI > (newValue - 1) && newI < (newValue + 1000)) {
-                        this.$set(this.data, index, {...this.data[index], active: data[i]});
-                        break;
+                        // this.$set(this.data, index, {...this.data[index], active: data[i]});
+                        num++;
+                        luckIndex=index;
+                        // break;
                     } else {
-                        this.$set(this.data, index, {...this.data[index], active: false});
+                        // this.$set(this.data, index, {...this.data[index], active: false});
                     }
+                }
+                if(num>0){
+                    this.$set(this.data, luckIndex, {...this.data[luckIndex], active: true});
+                    this.$message({
+                        message: `恭喜！${this.data[index].name}中${num}签`,
+                        type: 'success'
+                    });
+                }else{
+                    this.$set(this.data, luckIndex, {...this.data[luckIndex], active: false});
                 }
             }
         }
