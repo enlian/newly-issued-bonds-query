@@ -68,6 +68,7 @@
                 width="90%"
                 center
                 top="5%"
+                :fullscreen="true"
                 title="" :visible.sync="dialogVisible">
             <img src="/static/code.jpeg" class="code"/>
         </el-dialog>
@@ -205,11 +206,11 @@
     }
 
     .el-dialog__header {
-        padding-top: 7px !important;
+        padding-top: 6px !important;
     }
 
     .el-dialog__headerbtn{
-        top:8px!important;
+        top:6px!important;
         right: 10px!important;
     }
 
