@@ -67,18 +67,18 @@
 
         <el-dialog
                 custom-class="tiYan"
-                width="90%"
+                :width=modalWidth
                 center
-                top="5%"
+                top="10%"
                 title="" :visible.sync="dialogVisible">
             <img src="/static/code.jpeg" class="code"/>
         </el-dialog>
 
         <el-dialog
                 custom-class="daShang"
-                width="90%"
+                :width=modalWidth
                 center
-                top="5%"
+                top="10%"
                 title="打赏作者" :visible.sync="rewardVisible">
             <p>如果这个小工具能对您有帮助，欢迎收藏并推荐给朋友使用。</p>
             <p>我们会继续完善功能，优化体验，谢谢您的打赏！</p>
@@ -128,7 +128,8 @@
                 loading: true,
                 list: null,
                 dialogVisible: false,
-                rewardVisible:false
+                rewardVisible:false,
+                modalWidth:document.documentElement.clientWidth>900?'30%':'90%'
             }
         },
         mounted() {
