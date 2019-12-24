@@ -56,8 +56,9 @@
 
 
         <el-row style="float:left;padding-left:15px">
-            <el-button type="primary" @click="refresh">刷新页面</el-button>
-            <el-button type="danger" @click="dialogVisible = true">扫码领取体验金</el-button>
+            <el-button size="small" type="primary" @click="refresh">刷新页面</el-button>
+            <el-button size="small" type="primary" @click="rewardVisible = true">打赏作者</el-button>
+            <el-button size="small" type="danger" @click="dialogVisible = true">扫码领取体验金</el-button>
         </el-row>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
@@ -65,11 +66,31 @@
         <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>合作联系：651754835@qq.com</p>
 
         <el-dialog
+                custom-class="tiYan"
                 width="90%"
                 center
                 top="5%"
                 title="" :visible.sync="dialogVisible">
             <img src="/static/code.jpeg" class="code"/>
+        </el-dialog>
+
+        <el-dialog
+                custom-class="daShang"
+                width="90%"
+                center
+                top="5%"
+                title="打赏作者" :visible.sync="rewardVisible">
+            <p>如果这个小工具能对您有帮助，欢迎收藏并推荐给朋友使用。</p>
+            <p>我们会继续完善功能，优化体验，谢谢您的打赏！</p>
+
+            <span>微信:</span>
+            <img src="/static/wx.jpg" class="code"/>
+            <br>
+            <br>
+            <br>
+            <span>支付宝:</span>
+            <img src="/static/zfb.jpg" class="code"/>
+
         </el-dialog>
 
     </div>
@@ -107,7 +128,8 @@
                 data: null,
                 loading: true,
                 list: null,
-                dialogVisible: false
+                dialogVisible: false,
+                rewardVisible:false
             }
         },
         mounted() {
@@ -200,17 +222,21 @@
         width: 100%;
     }
 
-    .el-dialog__body {
+    .tiYan .el-dialog__body {
         padding: 15px !important;
     }
 
-    .el-dialog__header {
+    .tiYan .el-dialog__header {
         padding-top: 6px !important;
     }
 
-    .el-dialog__headerbtn{
+    .tiYan .el-dialog__headerbtn{
         top:6px!important;
         right: 10px!important;
+    }
+
+    .daShang .el-dialog__body{
+        padding-top: 0!important;
     }
 
     #app {
