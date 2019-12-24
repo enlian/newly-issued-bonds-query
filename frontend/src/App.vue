@@ -1,6 +1,6 @@
 <template>
     <div id="app">
-<!--         <p class="title">输入配号查询是否中签，默认1000个配号</p>-->
+        <!--         <p class="title">输入配号查询是否中签，默认1000个配号</p>-->
         <el-table
                 v-loading="loading"
                 :data="data"
@@ -54,9 +54,24 @@
 
         <P class="desc">PS：默认顶格申购，配号数1000个</P>
 
+
+        <el-row style="float:left;padding-left:15px">
+            <el-button type="primary" @click="refresh">刷新页面</el-button>
+            <el-button type="danger" @click="dialogVisible = true">扫码领取体验金</el-button>
+        </el-row>
+
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
         <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>合作联系：651754835@qq.com</p>
+
+        <el-dialog
+                width="90%"
+                center
+                top="5%"
+                title="" :visible.sync="dialogVisible">
+            <img src="/static/code.jpeg" class="code"/>
+        </el-dialog>
+
     </div>
 </template>
 
@@ -92,6 +107,7 @@
                 data: null,
                 loading: true,
                 list: null,
+                dialogVisible: false
             }
         },
         mounted() {
@@ -99,6 +115,14 @@
             this.getLocalData();
         },
         methods: {
+            refresh() {
+                this.loading = true;
+                this.getLocalData()
+                this.$message({
+                    message: '刷新成功，已获取最新数据',
+                    type: 'success'
+                });
+            },
             onClear(index) {
                 this.$set(this.data, index, {...this.data[index], active: null});
             },
@@ -172,6 +196,23 @@
         padding: 0;
     }
 
+    .code {
+        width: 100%;
+    }
+
+    .el-dialog__body {
+        padding: 15px !important;
+    }
+
+    .el-dialog__header {
+        padding-top: 7px !important;
+    }
+
+    .el-dialog__headerbtn{
+        top:8px!important;
+        right: 10px!important;
+    }
+
     #app {
         font-family: Helvetica, sans-serif;
         text-align: center;
@@ -193,7 +234,7 @@
         padding-top: 1em;
     }
 
-    .desc{
+    .desc {
         color: #ccc;
         font-size: 0.8em;
         text-align: left;
