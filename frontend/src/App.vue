@@ -128,10 +128,7 @@
             dealData(response) {
                 response = JSON.parse(response);
                 this.data = response;
-                setTimeout(()=>{
-                    this.loading = false;
-
-                },2000)
+                this.loading = false;
             },
             check(index, value = '0') {
                 if (value.length < 4 || isContinuationInteger(value)) {
