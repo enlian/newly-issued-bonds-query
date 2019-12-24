@@ -2,7 +2,7 @@ const schedule = require('node-schedule');
 const main = require('./main');
 
 const rule = new schedule.RecurrenceRule();
-rule.minute = [0, 30];
+rule.minute = [0, 15, 45];
 
 const task = ()=>{
     schedule.scheduleJob(rule,()=>{
