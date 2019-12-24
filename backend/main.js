@@ -60,6 +60,9 @@ function writeFile(data) {
     const valueLength = _.filter(data,(i)=>{
         return i && i.values && i.values.length>0;
     }).length;
+
+    const isWin = process.platform.toLowerCase().match('win');
+
     console.log(`拿到数据${valueLength}/${data.length}`);
     data = aesEncrypt(JSON.stringify(data), key);
     // data = `var zqData = "${data}";`;
@@ -80,7 +83,7 @@ function writeFile(data) {
         console.log('写入完成: frontend/static/data');
     });
 
-    rumCommand('sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
+    rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
         console.log('shell脚本开始----------------',result);
     })
 }
