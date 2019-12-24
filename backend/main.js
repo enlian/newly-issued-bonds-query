@@ -4,6 +4,8 @@ const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
 const crypto = require('crypto');
+var spawn = require('child_process').spawn;
+
 //密钥
 const key = 'j38dsg`hsj9-201!ush`jd832u_j04384rh`sk2937h!ns8';
 const reptileUrl = "http://data.eastmoney.com/kzz/";
@@ -77,6 +79,17 @@ function writeFile(data) {
         }
         console.log('写入完成: frontend/static/data');
     });
+
+    rumCommand('sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
+        console.log('shell脚本开始----------------',result);
+    })
+}
+
+function rumCommand( cmd, args, cwd, callback ) {
+    var child = spawn( cmd, args, {cwd: cwd} )
+    var response = ''
+    child.stdout.on('data', function( buffer ){ response += buffer.toString(); })
+    child.stdout.on('end', function(){ callback( response ) })
 }
 
 //加密

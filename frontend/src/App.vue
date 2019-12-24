@@ -9,13 +9,13 @@
             <el-table-column
                     label='名字'
                     prop="name"
-                    width="80"
+                    width="78"
             >
             </el-table-column>
             <el-table-column
                     label="起始配号"
                     prop="inputValue"
-                    width="120"
+                    width="140"
             >
                 <template slot-scope="scope">
                     <el-input :clearable=true
@@ -31,7 +31,7 @@
             <el-table-column
                     label="中签率"
                     prop="successRate"
-                    width="70"
+                    width="68"
             >
                 <template slot-scope="scope">
                     {{scope.row.successRate>0?(scope.row.successRate*1000).toFixed(2)+'%':'没出'}}

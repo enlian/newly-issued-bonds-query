@@ -13,3 +13,4 @@ frontend/yarn.lock
 /frontend/yarn-error.log
 frontend/static/data.txt
 frontend/static/data.js
+/frontend/static/run.sh
