@@ -68,7 +68,6 @@
                 width="90%"
                 center
                 top="5%"
-                :fullscreen="true"
                 title="" :visible.sync="dialogVisible">
             <img src="/static/code.jpeg" class="code"/>
         </el-dialog>
@@ -117,7 +116,7 @@
         },
         methods: {
             refresh() {
-                this.loading = true;
+                // this.loading = true;
                 this.getLocalData()
                 this.$message({
                     message: '刷新成功，已获取最新数据',
@@ -217,7 +216,7 @@
     #app {
         font-family: Helvetica, sans-serif;
         text-align: center;
-        padding-top: 2em;
+        padding-top: 1.5em;
     }
 
     .el-input__inner {
