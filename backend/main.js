@@ -69,7 +69,7 @@ function writeFile(data) {
 
     fs.readFile('../../etf-dist/static/data.txt', 'utf8',(err, readData) => {
         if(readData===data && !err){
-            console.log('---------Process ends, file remains unchanged---------');
+            console.log('---------Process ends, file unchanged---------');
             return;
         }else{
 
