@@ -63,7 +63,7 @@ function writeFile(data) {
 
     const isWin = process.platform!=='darwin';
 
-    console.log(`拿到数据${valueLength}/${data.length}`);
+    console.log(`---------Data: ${valueLength}/${data.length}---------`);
     data = aesEncrypt(JSON.stringify(data), key);
     // data = `var zqData = "${data}";`;
 
