@@ -73,6 +73,9 @@ function writeFile(data) {
             return false;
         }
         console.log('写入完成: etf-dist/static/data');
+        rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
+            console.log('shell脚本开始----------------',result);
+        })
     });
 
     fs.writeFile('../frontend/static/data.txt', data, function (err) {
@@ -82,10 +85,6 @@ function writeFile(data) {
         }
         console.log('写入完成: frontend/static/data');
     });
-
-    rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
-        console.log('shell脚本开始----------------',result);
-    })
 }
 
 function rumCommand( cmd, args, cwd, callback ) {
