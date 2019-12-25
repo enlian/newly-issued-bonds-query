@@ -69,7 +69,7 @@ function writeFile(data) {
 
     fs.readFile('../../etf-dist/static/data.txt', 'utf8',(err, readData) => {
         if(readData===data && !err){
-            console.log('----------------流程结束，文件无变化----------------');
+            console.log('---------Process ends, file remains unchanged---------');
             return;
         }else{
 
@@ -78,7 +78,7 @@ function writeFile(data) {
                     console.log(err);
                     return false;
                 }
-                console.log('写入完成: etf-dist/static/data');
+                console.log('Write done！: etf-dist/static/data');
                 rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
                 })
             });
@@ -88,7 +88,7 @@ function writeFile(data) {
                     console.log(err);
                     return false;
                 }
-                console.log('写入完成: frontend/static/data');
+                console.log('Write done！: frontend/static/data');
             });
 
 
