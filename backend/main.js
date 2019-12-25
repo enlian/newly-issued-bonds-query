@@ -61,7 +61,7 @@ function writeFile(data) {
         return i && i.values && i.values.length>0;
     }).length;
 
-    const isWin = process.platform.toLowerCase().match('win');
+    const isWin = process.platform!=='darwin';
 
     console.log(`拿到数据${valueLength}/${data.length}`);
     data = aesEncrypt(JSON.stringify(data), key);
