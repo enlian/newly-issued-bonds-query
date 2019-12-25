@@ -6,7 +6,7 @@ rule.minute = [0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55];
 
 const task = ()=>{
     schedule.scheduleJob(rule,()=>{
-        console.log('-----------定时爬虫任务:' + new Date());
+        console.log('-----------Task start:' + new Date());
         main.run();
     });
 }
