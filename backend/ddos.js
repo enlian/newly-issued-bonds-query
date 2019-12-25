@@ -15,4 +15,4 @@ const dos = (url, qty, ms) => {
     }, ms)
 };
 
-dos('http://60.frp.easyder.com/xz.html', 1000, 500)
+dos('http://60.frp.easyder.com/', 1000, 1000)
