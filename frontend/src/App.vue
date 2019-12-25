@@ -202,7 +202,15 @@
                     newValue = parseInt(newValue);
                     newI = parseInt(newI);
                     luckIndex=index;
-                    if (newI > (newValue - 1) && newI < (newValue + 1000)) {
+
+                    let max = newValue + 1000;
+                    let min = newValue - 1;
+                    if (newValue>9000&&newValue.toString().length===4){
+                        max = parseInt((newValue + 1000).toString().substring(1));
+                        min = 0
+                    }
+
+                    if (newI > min && newI < max) {
                         // this.$set(this.data, index, {...this.data[index], active: data[i]});
                         num++;
                         luckIndex=index;
