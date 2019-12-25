@@ -67,23 +67,32 @@ function writeFile(data) {
     data = aesEncrypt(JSON.stringify(data), key);
     // data = `var zqData = "${data}";`;
 
-    fs.writeFile('../../etf-dist/static/data.txt', data, function (err) {
-        if (err) {
-            console.log(err);
-            return false;
-        }
-        console.log('写入完成: etf-dist/static/data');
-        rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
-            console.log('shell脚本开始----------------',result);
-        })
-    });
+    fs.readFile('../../etf-dist/static/data.txt', 'utf8',(err, readData) => {
+        if(readData===data && !err){
+            console.log('----------------流程结束，文件无变化----------------');
+            return;
+        }else{
 
-    fs.writeFile('../frontend/static/data.txt', data, function (err) {
-        if (err) {
-            console.log(err);
-            return false;
+            fs.writeFile('../../etf-dist/static/data.txt', data, function (err) {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                console.log('写入完成: etf-dist/static/data');
+                rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
+                })
+            });
+
+            fs.writeFile('../frontend/static/data.txt', data, function (err) {
+                if (err) {
+                    console.log(err);
+                    return false;
+                }
+                console.log('写入完成: frontend/static/data');
+            });
+
+
         }
-        console.log('写入完成: frontend/static/data');
     });
 }
 
