@@ -1,28 +1,29 @@
 <template>
     <div id="app">
-        <!--         <p class="title">输入配号查询是否中签，默认1000个配号</p>-->
+        <p class="header">新债中签查询</p>
+
         <el-table
                 v-loading="loading"
                 :data="data"
-                stripe
-                style="padding-left: 10px;padding-right: 10px">
+                stripe>
             <el-table-column
                     label='名字'
                     prop="name"
-                    width="78"
-            >
+                    width="82">
+                <template slot-scope="scope">
+                    <div>{{scope.row.name}}</div>
+                </template>
             </el-table-column>
             <el-table-column
                     label="起始配号"
                     prop="inputValue"
-                    width="140"
-            >
+                    width="145">
                 <template slot-scope="scope">
                     <el-input :clearable=true
                               minlength='4'
                               maxlength="14"
                               :readonly='scope.row.values.length===0'
-                              v-model="scope.row.inputValue" :placeholder='"输入配号"'
+                              v-model="scope.row.inputValue" :placeholder='scope.row.values.length===0?"暂不可查":"输入配号"'
                               @input="onClear(scope.$index)"
                               @clear="onClear(scope.$index)"
                     ></el-input>
@@ -34,7 +35,7 @@
                     width="68"
             >
                 <template slot-scope="scope">
-                    {{scope.row.successRate>0?(scope.row.successRate*1000).toFixed(2)+'%':'没出'}}
+                    {{scope.row.successRate>0?(scope.row.successRate*1000).toFixed(2)+'%':'无'}}
                 </template>
             </el-table-column>
             <el-table-column
@@ -59,11 +60,12 @@
             <el-button size="small" type="primary" @click="refresh">刷新页面</el-button>
             <el-button size="small" type="primary" @click="rewardVisible = true">打赏作者</el-button>
             <el-button size="small" type="danger" @click="dialogVisible = true">薅羊毛</el-button>
+            <el-button size="small" type="danger" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
-        <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>合作联系：651754835@qq.com</p>
+        <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>股票万1基金万0.5免5 开户联系QQ：651754835</p>
 
         <el-dialog
                 custom-class="tiYan"
@@ -77,6 +79,19 @@
             <br>
             <p>余额宝体验金，你懂的</p>
             <img src="/static/code.jpeg" class="code"/>
+        </el-dialog>
+
+        <el-dialog
+                :width=modalWidth
+                center
+                top="10%"
+                title="万1开户" :visible.sync="kaihuVisible">
+            <p>海通证券，AA评级，国内顶级券商</p>
+            <p>股票万1，基金万0.5，都免5</p>
+            <p>深可转债万0.4，沪可转债万0.02，逆回购1折</p>
+            <p>以上费率均包含规费且无最低收费！</p>
+            <p>全网最低！联系QQ：651754835</p>
+
         </el-dialog>
 
         <el-dialog
@@ -133,8 +148,9 @@
                 loading: true,
                 list: null,
                 dialogVisible: false,
-                rewardVisible:false,
-                modalWidth:document.documentElement.clientWidth>900?'30%':'90%'
+                rewardVisible: false,
+                kaihuVisible:false,
+                modalWidth: document.documentElement.clientWidth > 900 ? '30%' : '90%'
             }
         },
         mounted() {
@@ -206,11 +222,11 @@
 
                     newValue = parseInt(newValue);
                     newI = parseInt(newI);
-                    luckIndex=index;
+                    luckIndex = index;
 
                     let max = newValue + 1000;
                     let min = newValue - 1;
-                    if (newValue>9000&&newValue.toString().length===4){
+                    if (newValue > 9000 && newValue.toString().length === 4) {
                         max = parseInt((newValue + 1000).toString().substring(1));
                         min = 0
                     }
@@ -218,19 +234,19 @@
                     if (newI > min && newI < max) {
                         // this.$set(this.data, index, {...this.data[index], active: data[i]});
                         num++;
-                        luckIndex=index;
+                        luckIndex = index;
                         // break;
                     } else {
                         // this.$set(this.data, index, {...this.data[index], active: false});
                     }
                 }
-                if(num>0){
+                if (num > 0) {
                     this.$set(this.data, luckIndex, {...this.data[luckIndex], active: true});
                     this.$message({
                         message: `恭喜！${this.data[index].name}中${num}签`,
                         type: 'success'
                     });
-                }else{
+                } else {
                     this.$set(this.data, luckIndex, {...this.data[luckIndex], active: false});
                 }
             }
@@ -242,8 +258,43 @@
     body {
         /*background: #909399;*/
         overflow: hidden;
-        margin: 0;
         padding: 0;
+        max-width: 375px;
+        margin: 0 auto;
+        background: #606266;
+    }
+
+    #app {
+        width: 100%;
+        min-height: 2160px;
+        font-family: Helvetica, sans-serif;
+        text-align: center;
+        background: #fff;
+        /*padding-top: 1.5em;*/
+    }
+
+    .header{
+        margin: 0;
+        padding-top: 20px;
+        padding-bottom: 15px;
+        color: #909399;
+        font-size: 1em;
+        border-bottom: 1px solid #EBEEF5;
+    }
+
+    .footer {
+        /*width: 100%;*/
+        text-align: center;
+        position: absolute;
+        bottom: 1em;
+        color: #ccc;
+        font-size: 0.7em;
+        left: 0;
+        right: 0;
+    }
+
+    .el-table_1_column_1 .cell{
+        padding-left: 15px!important;
     }
 
     .code {
@@ -258,19 +309,13 @@
         padding-top: 6px !important;
     }
 
-    .tiYan .el-dialog__headerbtn{
-        top:6px!important;
-        right: 10px!important;
+    .tiYan .el-dialog__headerbtn {
+        /*top:6px!important;*/
+        /*right: 10px!important;*/
     }
 
-    .daShang .el-dialog__body{
-        padding-top: 0!important;
-    }
-
-    #app {
-        font-family: Helvetica, sans-serif;
-        text-align: center;
-        padding-top: 1.5em;
+    .daShang .el-dialog__body {
+        padding-top: 0 !important;
     }
 
     .el-input__inner {
@@ -293,14 +338,6 @@
         font-size: 0.8em;
         text-align: left;
         padding-left: 15px;
-    }
-
-    .footer {
-        width: 100%;
-        text-align: center;
-        position: absolute;
-        bottom: 1em;
-        color: #ccc;
-        font-size: 0.7em;
+        padding-bottom: 15px;
     }
 </style>
