@@ -58,7 +58,7 @@
         <el-row style="float:left;padding-left:15px">
             <el-button size="small" type="primary" @click="refresh">刷新页面</el-button>
             <el-button size="small" type="primary" @click="rewardVisible = true">打赏作者</el-button>
-            <el-button size="small" type="danger" @click="dialogVisible = true">扫码领取体验金</el-button>
+            <el-button size="small" type="danger" @click="dialogVisible = true">薅羊毛</el-button>
         </el-row>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
@@ -71,6 +71,11 @@
                 center
                 top="10%"
                 title="" :visible.sync="dialogVisible">
+            <p>支付宝基金体验金，7天大概赚10块</p>
+            <img src="/static/money.jpg" class="code"/>
+            <br>
+            <br>
+            <p>余额宝体验金，你懂的</p>
             <img src="/static/code.jpeg" class="code"/>
         </el-dialog>
 
