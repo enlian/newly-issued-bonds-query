@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div id="app" :style="{height: clientHeight+'px'}">
         <p class="header">新债中签查询</p>
 
         <el-table
@@ -57,10 +57,16 @@
 
 
         <el-row style="float:left;padding-left:15px">
-            <el-button size="small" type="primary" @click="refresh">刷新页面</el-button>
-            <el-button size="small" type="primary" @click="rewardVisible = true">打赏作者</el-button>
-            <el-button size="small" type="danger" @click="dialogVisible = true">薅羊毛</el-button>
-            <el-button size="small" type="danger" @click="kaihuVisible = true">万1开户</el-button>
+            <el-button size="mini" type="primary" @click="refresh">刷新页面</el-button>
+            <el-button size="mini" type="primary" @click="qunVisible = true">定投及打新债交流群</el-button>
+        </el-row>
+
+        <el-row style="float:left;padding-left:15px;margin-top: 10px">
+
+            <el-button size="mini" type="primary" @click="rewardVisible = true">打赏作者</el-button>
+
+            <el-button size="mini" type="danger" @click="dialogVisible = true">薅羊毛</el-button>
+            <el-button size="mini" type="danger" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
@@ -79,6 +85,14 @@
             <br>
             <p>余额宝体验金，你懂的</p>
             <img src="/static/code.jpeg" class="code"/>
+        </el-dialog>
+
+        <el-dialog
+                :width=modalWidth
+                center
+                top="10%"
+                title="" :visible.sync="qunVisible">
+            <img src="/static/qun.jpg" class="code"/>
         </el-dialog>
 
         <el-dialog
@@ -149,7 +163,9 @@
                 list: null,
                 dialogVisible: false,
                 rewardVisible: false,
-                kaihuVisible:false,
+                kaihuVisible: false,
+                qunVisible: false,
+                clientHeight:document.documentElement.clientHeight,
                 modalWidth: document.documentElement.clientWidth > 900 ? '30%' : '90%'
             }
         },
@@ -266,14 +282,13 @@
 
     #app {
         width: 100%;
-        min-height: 2160px;
         font-family: Helvetica, sans-serif;
         text-align: center;
         background: #fff;
         /*padding-top: 1.5em;*/
     }
 
-    .header{
+    .header {
         margin: 0;
         padding-top: 20px;
         padding-bottom: 15px;
@@ -293,8 +308,8 @@
         right: 0;
     }
 
-    .el-table_1_column_1 .cell{
-        padding-left: 15px!important;
+    .el-table_1_column_1 .cell {
+        padding-left: 15px !important;
     }
 
     .code {
