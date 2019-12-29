@@ -84,7 +84,7 @@
             <br>
             <br>
             <p>余额宝体验金，你懂的</p>
-            <img src="/static/code.jpeg" class="code"/>
+            <img src="/static/code.jpg" class="code"/>
         </el-dialog>
 
         <el-dialog
@@ -118,11 +118,11 @@
             <p>我们会继续完善功能，优化体验，谢谢您的打赏！</p>
 
             <span style="display: block">微信:</span>
-            <img src="/static/wx.JPG" class="code" style="width: 200px;height: 200px;"/>
+            <img src="/static/wx.jpg" class="code" style="width: 200px;height: 200px;"/>
             <br>
             <br>
             <span style="display: block">支付宝:</span>
-            <img src="/static/zfb.jpeg" class="code" style="width: 205px;height: 205px;"/>
+            <img src="/static/zfb.jpg" class="code" style="width: 205px;height: 205px;"/>
 
         </el-dialog>
 
