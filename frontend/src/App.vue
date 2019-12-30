@@ -63,11 +63,9 @@
             <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
 
-        <el-row style="float:left;padding-left:15px;margin-top: 10px">
-            <el-button size="mini" type="primary" @click="rewardVisible = true">打赏作者</el-button>
-
-
-        </el-row>
+<!--        <el-row style="float:left;padding-left:15px;margin-top: 10px">-->
+<!--            <el-button size="mini" type="primary" @click="rewardVisible = true">打赏作者</el-button>-->
+<!--        </el-row>-->
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
