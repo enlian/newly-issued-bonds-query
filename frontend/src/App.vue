@@ -286,6 +286,7 @@
         font-family: Helvetica, sans-serif;
         text-align: center;
         background: #fff;
+        position: relative;
         /*padding-top: 1.5em;*/
     }
 
