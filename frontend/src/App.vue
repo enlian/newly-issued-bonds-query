@@ -1,6 +1,7 @@
 <template>
     <div id="app" :style="{height: clientHeight+'px'}">
         <p class="header">新债中签查询</p>
+        <el-button size="small" type="text" icon="el-icon-refresh" @click="refresh" class="refresh">刷新</el-button>
 
         <el-table
                 v-loading="loading"
@@ -57,16 +58,15 @@
 
 
         <el-row style="float:left;padding-left:15px">
-            <el-button size="mini" type="primary" @click="refresh">刷新页面</el-button>
-            <el-button size="mini" type="primary" @click="qunVisible = true">定投及打新债交流群</el-button>
+            <el-button size="mini" type="success" @click="qunVisible = true">打新债及定投交流群</el-button>
+            <el-button size="mini" type="success" @click="dialogVisible = true">薅羊毛</el-button>
+            <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
 
         <el-row style="float:left;padding-left:15px;margin-top: 10px">
-
             <el-button size="mini" type="primary" @click="rewardVisible = true">打赏作者</el-button>
 
-            <el-button size="mini" type="danger" @click="dialogVisible = true">薅羊毛</el-button>
-            <el-button size="mini" type="danger" @click="kaihuVisible = true">万1开户</el-button>
+
         </el-row>
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
@@ -98,7 +98,7 @@
         <el-dialog
                 :width=modalWidth
                 center
-                top="10%"
+                top="15%"
                 title="万1开户" :visible.sync="kaihuVisible">
             <p>海通证券，AA评级，国内顶级券商</p>
             <p>股票万1，基金万0.5，都免5</p>
@@ -179,7 +179,8 @@
                 this.getLocalData()
                 this.$message({
                     message: '刷新成功，已获取最新数据',
-                    type: 'success'
+                    type: 'success',
+                    duration:500
                 });
             },
             onClear(index) {
@@ -295,6 +296,13 @@
         color: #909399;
         font-size: 1em;
         border-bottom: 1px solid #EBEEF5;
+    }
+
+    .refresh{
+        position: absolute;
+        top:15px;
+        right: 15px;
+        color: #909399!important;
     }
 
     .footer {
