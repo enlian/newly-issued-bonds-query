@@ -60,7 +60,7 @@
         <el-row style="float:left;padding-left:15px">
             <el-button size="mini" type="success" @click="qunVisible = true">打新债及定投交流群</el-button>
             <el-button size="mini" type="success" @click="dialogVisible = true">薅羊毛</el-button>
-            <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>
+<!--            <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>-->
         </el-row>
 
 <!--        <el-row style="float:left;padding-left:15px;margin-top: 10px">-->
@@ -69,7 +69,9 @@
 
         <p class="title" v-if="!data && !loading">今日暂无新债公布中签配号 <br/>请晚点再来试下~</p>
 
-        <p class="footer">本站数据仅供个人参考，最终结果请以券商为准<br/>股票万1基金万0.5免5开户 微信：15919286693</p>
+        <p class="footer">本站数据仅供个人参考，最终结果请以券商为准
+<!--            <br/>股票万1基金万0.5免5开户 微信：15919286693-->
+        </p>
 
         <el-dialog
                 custom-class="tiYan"
