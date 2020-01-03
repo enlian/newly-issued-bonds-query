@@ -130,7 +130,11 @@ function getNums1(successRate) {
                     res = res.text;
 
                     let $ = cheerio.load(res,{decodeEntities: false});
-                    const text = $('#code-arr p').text();
+                    let text = $('#code-arr p').text();
+                    text = replaceText(text);
+                    if(!text){
+                        reject(null);
+                    }
                     let arr=text.split(":");
 
                     if(arr&&arr[1]&&arr[1].length>0){
@@ -151,7 +155,7 @@ function getNums1(successRate) {
                 }
             })
     }).catch((e) => {
-        console.log('程序出错', e)
+        console.log('结束easyder抓取', e)
     });
 }
 
