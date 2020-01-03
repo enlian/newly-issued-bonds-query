@@ -31,15 +31,15 @@ exports.run = function () {
             res = JSON.parse(res.text);
 
             if (_.get(res, 'status_code') === 0) {
-                let day1 = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
-                let day2 = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
-                let day3 = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
+                let day1 = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
+                let day2 = moment(new Date()).add(-2, 'days').format('YYYY-MM-DD');
+                let day3 = moment(new Date()).add(-3, 'days').format('YYYY-MM-DD');
 
-                let todayRate = 0;
+                let todayRate = [];
                 const list = _.filter(res.list, (i) => {
-                    const date = i.sign_date;
-                    if(day1 === i.sign_date){
-                        todayRate = i.success_rate
+                    const date = i.sub_date;
+                    if(day1 === i.sub_date){
+                        todayRate.push({name:i.name,successRate:i.success_rate})
                     }
                     return date === day1 || date === day2 || date === day3
                 });
@@ -138,6 +138,11 @@ function getNums1(successRate) {
                     let arr=text.split(":");
 
                     if(arr&&arr[1]&&arr[1].length>0){
+                        let item = _.find(successRate,function (i) {
+                            return i.name.match(arr[0])
+                        });
+                        let successRate = item.successRate;
+
                         res = {
                             name: arr[0]+'转债',
                             values: arr[1].split(","),
