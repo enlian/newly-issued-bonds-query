@@ -132,18 +132,11 @@
 <script>
     import moment from 'moment'
     import _ from 'lodash';
-
     const crypto = require('crypto');
+    import sign from './sign'
 
-    const key = 'j38dsg`hsj9-201!ush`jd832u_j04384rh`sk2937h!ns8';
-
-    //解密
-    function aesDecrypt(encrypted, key) {
-        const decipher = crypto.createDecipher('aes192', key);
-        let decrypted = decipher.update(encrypted, 'hex', 'utf8');
-        decrypted += decipher.final('utf8');
-        return decrypted;
-    }
+    const key = Buffer.from('i4jWS3k4DG02osk3', 'utf8');
+    const iv = Buffer.from('SF4eFK7YunE3wV6J', 'utf8');
 
     //简单数字测试
     function isContinuationInteger(arr) {
@@ -204,7 +197,7 @@
                 let _t = new Date().getTime();
 
                 this.$http.get(`./static/data.txt?t=${_t}`).then(res => {
-                    this.dealData(aesDecrypt(res.bodyText, key))
+                    this.dealData(sign.deSign(res.bodyText, key,iv))
                 })
 
                 // this.dealData(aesDecrypt(zqData,key))

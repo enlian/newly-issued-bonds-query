@@ -4,10 +4,14 @@ const fs = require('fs');
 const _ = require('lodash');
 const moment = require('moment');
 const crypto = require('crypto');
+const sign = require('./sign');
+
 var spawn = require('child_process').spawn;
 
 //密钥
-const key = 'j38dsg`hsj9-201!ush`jd832u_j04384rh`sk2937h!ns8';
+const key = Buffer.from('i4jWS3k4DG02osk3', 'utf8');
+const iv = Buffer.from('SF4eFK7YunE3wV6J', 'utf8');
+
 const reptileUrl = "http://data.eastmoney.com/kzz/";
 
 //主流程
@@ -61,7 +65,7 @@ exports.run = function () {
 
 
 function writeFile(data) {
-    console.log(JSON.stringify(data));
+    console.log(data);
     const valueLength = _.filter(data,(i)=>{
         return i && i.values && i.values.length>0;
     }).length;
@@ -69,7 +73,7 @@ function writeFile(data) {
     const isWin = process.platform!=='darwin';
 
     console.log(`---------Data: ${valueLength}/${data.length}---------`);
-    data = aesEncrypt(JSON.stringify(data), key);
+    data = sign.genSign(JSON.stringify(data), key,iv);
     // data = `var zqData = "${data}";`;
 
     fs.readFile('../../etf-dist/static/data.txt', 'utf8',(err, readData) => {
@@ -84,7 +88,9 @@ function writeFile(data) {
                     return false;
                 }
                 console.log('Write done！: etf-dist/static/data');
-                rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) { // 清理缓存
+                rumCommand(isWin?'C:/Program Files/Git/git-bash.exe':'sh', ['../../etf-dist/run.sh'], '../../etf-dist/static/' ,function( result ) {
+                    // 清理缓存
+                    console.log(result)
                 })
             });
 
