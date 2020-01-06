@@ -38,23 +38,40 @@ exports.run = function () {
                 let day1 = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
                 let day2 = moment(new Date()).add(-2, 'days').format('YYYY-MM-DD');
                 let day3 = moment(new Date()).add(-3, 'days').format('YYYY-MM-DD');
+                let day4 = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
 
                 let todayRate = [];
+
                 const list = _.filter(res.list, (i) => {
                     const date = i.sub_date;
-                    if(day1 === i.sub_date){
+                    if(day4 === i.sign_date){
                         todayRate.push({name:i.name,successRate:i.success_rate})
                     }
                     return date === day1 || date === day2 || date === day3
                 });
-                const promiseArray = [getNums1(todayRate)];
+                const promiseArray = [getNums1(todayRate&&todayRate.length>0?todayRate:null)];
+                // const promiseArray = [];
                 _.map(list, (i) => {
                     promiseArray.push(getNums(token, i.bond_code,i.success_rate));
                 });
 
                 Promise.all(promiseArray).then(function (results) {
-                    results = _.compact(results);
-                    results = _.uniqBy(results, 'name');
+
+                    let res = [];
+
+                    _.map(results,(i)=>{
+                        if(i.length>0){
+                            _.map(i,(j)=>{
+                                res.push(j)
+                            })
+                        }else{
+                            res.push(i)
+                        }
+                    })
+
+                    res = _.compact(res);
+                    res = _.uniqBy(res, 'name');
+
                     results && writeFile(results);
                 });
             }
@@ -165,7 +182,7 @@ function aesEncrypt(data, key) {
 }
 
 //从easyder拿中签数据
-function getNums1(successRate) {
+function getNums1(oriArray = [{name:'',successRate:0}]) {
     return new Promise(function (resolve, reject) {
         const url = 'http://60.frp.easyder.com/';
         return superagent.get(url)
@@ -178,29 +195,31 @@ function getNums1(successRate) {
                     res = res.text;
 
                     let $ = cheerio.load(res,{decodeEntities: false});
-                    let text = $('#code-arr p').text();
-                    text = replaceText(text);
-                    if(!text){
-                        reject(null);
-                    }
-                    let arr=text.split(":");
+                    let res1 = [];
 
-                    if(arr&&arr[1]&&arr[1].length>0){
-                        let item = _.find(successRate,function (i) {
-                            return i.name.match(arr[0])
-                        });
-                        let successRate = item.successRate;
+                    $('#code-arr p').map(function(i, el){
+                        let text = $(this).text();
+                        text = replaceText(text);
 
-                        res = {
-                            name: arr[0]+'转债',
-                            values: arr[1].split(","),
-                            successRate:successRate
-                        };
-                        resolve(res);
-                    }else{
-                        console.log('easyder没数据');
-                        reject(null);
-                    }
+                        let arr=text.split(":");
+
+                        if(arr&&arr[1]&&arr[1].length>0){
+                            let item = _.find(oriArray,function (i) {
+                                return i.name.match(arr[0])
+                            });
+
+                            let successRate = item.successRate;
+
+                            res1.push({
+                                name: arr[0]+'转债',
+                                values: arr[1].split(","),
+                                successRate:successRate
+                            });
+                        }
+
+                    });
+
+                    resolve(res1);
 
                 } else {
                     console.error('网页挂了或超时', err);
