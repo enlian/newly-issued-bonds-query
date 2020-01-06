@@ -174,14 +174,6 @@ function rumCommand( cmd, args, cwd, callback ) {
     child.stdout.on('end', function(){ callback( response ) })
 }
 
-//加密
-function aesEncrypt(data, key) {
-    const cipher = crypto.createCipher('aes192', key);
-    let crypted = cipher.update(data, 'utf8', 'hex');
-    crypted += cipher.final('hex');
-    return crypted;
-}
-
 //从easyder拿中签数据
 function getNums1(oriArray = [{name:'',successRate:0}]) {
     return new Promise(function (resolve, reject) {

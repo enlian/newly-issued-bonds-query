@@ -1,5 +1,5 @@
 const schedule = require('node-schedule');
-const main = require('./main');
+const main = require('./main1');
 
 const rule = new schedule.RecurrenceRule();
 rule.dayOfWeek = [0,1,2,3,4];
