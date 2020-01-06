@@ -58,7 +58,7 @@
 
 
         <el-row style="float:left;padding-left:15px">
-            <el-button size="mini" type="success" @click="qunVisible = true">打新债及定投交流群</el-button>
+<!--            <el-button size="mini" type="success" @click="qunVisible = true">打新债及定投交流群</el-button>-->
             <el-button size="mini" type="success" @click="dialogVisible = true">薅羊毛</el-button>
             <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
