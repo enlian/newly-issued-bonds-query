@@ -60,7 +60,7 @@
         <el-row style="float:left;padding-left:15px">
             <el-button size="mini" type="success" @click="qunVisible = true">打新债及定投交流群</el-button>
             <el-button size="mini" type="success" @click="dialogVisible = true">薅羊毛</el-button>
-<!--            <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>-->
+            <el-button size="mini" type="success" @click="kaihuVisible = true">万1开户</el-button>
         </el-row>
 
 <!--        <el-row style="float:left;padding-left:15px;margin-top: 10px">-->
@@ -104,7 +104,8 @@
             <p>股票万1，基金万0.5，都免5</p>
             <p>深可转债万0.4，沪可转债万0.02，逆回购1折</p>
             <p>以上费率均包含规费且无最低收费！</p>
-            <p>全网最低！联系微信：15919286693</p>
+            <p style="color: red">调佣要求：单笔买入股票/ETF 1000元以上（佣金当天自动生效）</p>
+            <img src="/static/wan1.jpg" class="code"/>
 
         </el-dialog>
 
