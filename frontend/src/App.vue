@@ -161,7 +161,7 @@
                 qunVisible: false,
                 clientHeight:document.documentElement.clientHeight,
                 modalWidth: document.documentElement.clientWidth > 900 ? '30%' : '90%',
-                kaihuModalWidth: document.documentElement.clientWidth > 900 ? '50%' : '90%'
+                kaihuModalWidth: document.documentElement.clientWidth > 900 ? '55%' : '95%'
             }
         },
         mounted() {
