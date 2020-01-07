@@ -96,7 +96,7 @@
         </el-dialog>
 
         <el-dialog
-                width='90%'
+                :width=kaihuModalWidth
                 center
                 top="15%"
                 title="万1开户" :visible.sync="kaihuVisible">
@@ -160,7 +160,8 @@
                 kaihuVisible: false,
                 qunVisible: false,
                 clientHeight:document.documentElement.clientHeight,
-                modalWidth: document.documentElement.clientWidth > 900 ? '30%' : '90%'
+                modalWidth: document.documentElement.clientWidth > 900 ? '30%' : '90%',
+                kaihuModalWidth: document.documentElement.clientWidth > 900 ? '50%' : '90%'
             }
         },
         mounted() {
