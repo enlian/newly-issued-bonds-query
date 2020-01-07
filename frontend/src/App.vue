@@ -96,7 +96,7 @@
         </el-dialog>
 
         <el-dialog
-                :width=modalWidth
+                width='90%'
                 center
                 top="15%"
                 title="万1开户" :visible.sync="kaihuVisible">
