@@ -60,6 +60,9 @@ exports.run = function () {
                     let res = [];
 
                     _.map(results,(i)=>{
+                        if(!i.name){
+                            return;
+                        }
                         if(i && i.length>0){
                             _.map(i,(j)=>{
                                 res.push(j)
@@ -72,7 +75,7 @@ exports.run = function () {
                     res = _.compact(res);
                     res = _.uniqBy(res, 'name');
 
-                    // console.log(res);
+                    // console.log(results);
                     results && writeFile(res);
                 });
             }
