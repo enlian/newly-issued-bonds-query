@@ -49,8 +49,8 @@ exports.run = function () {
                     }
                     return date === day1 || date === day2 || date === day3
                 });
-                const promiseArray = [getNums1(todayRate&&todayRate.length>0?todayRate:null)];
-                // const promiseArray = [];
+                // const promiseArray = [getNums1(todayRate&&todayRate.length>0?todayRate:null)];
+                const promiseArray = [];
                 _.map(list, (i) => {
                     promiseArray.push(getNums(token, i.bond_code,i.success_rate));
                 });
