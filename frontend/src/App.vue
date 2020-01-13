@@ -78,7 +78,7 @@
                 :width=modalWidth
                 center
                 top="10%"
-                title="余额宝体验金" :visible.sync="dialogVisible">
+                title="" :visible.sync="dialogVisible">
 <!--            <p>支付宝基金体验金，7天大概赚10块</p>-->
 <!--            <img src="/static/money.jpg" class="code"/>-->
 <!--            <br>-->
@@ -329,8 +329,8 @@
     }
 
     .tiYan .el-dialog__headerbtn {
-        /*top:6px!important;*/
-        /*right: 10px!important;*/
+        top:6px!important;
+        right: 10px!important;
     }
 
     .daShang .el-dialog__body {
