@@ -60,14 +60,11 @@ exports.run = function () {
                     let res = [];
 
                     _.map(results,(i)=>{
-                        if(!i.name){
-                            return;
-                        }
                         if(i && i.length>0){
                             _.map(i,(j)=>{
-                                res.push(j)
+                                i.name && res.push(j)
                             })
-                        }else{
+                        }else if(i.name){
                             res.push(i)
                         }
                     })
