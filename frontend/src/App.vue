@@ -78,12 +78,12 @@
                 :width=modalWidth
                 center
                 top="10%"
-                title="" :visible.sync="dialogVisible">
-            <p>支付宝基金体验金，7天大概赚10块</p>
-            <img src="/static/money.jpg" class="code"/>
-            <br>
-            <br>
-            <p>余额宝体验金，你懂的</p>
+                title="余额宝体验金" :visible.sync="dialogVisible">
+<!--            <p>支付宝基金体验金，7天大概赚10块</p>-->
+<!--            <img src="/static/money.jpg" class="code"/>-->
+<!--            <br>-->
+<!--            <br>-->
+<!--            <p>余额宝体验金，你懂的</p>-->
             <img src="/static/code.jpg" class="code"/>
         </el-dialog>
 
