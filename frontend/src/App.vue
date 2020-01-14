@@ -36,7 +36,7 @@
                     width="68"
             >
                 <template slot-scope="scope">
-                    {{scope.row.successRate>0?(scope.row.successRate*1000>100?100:(scope.row.successRate*1000).toFixed(2)+'%'):'无'}}
+                    {{scope.row.successRate>0?(scope.row.successRate*1000>100?(scope.row.successRate*1000).toFixed(0):(scope.row.successRate*1000).toFixed(2)+'%'):'无'}}
                 </template>
             </el-table-column>
             <el-table-column
