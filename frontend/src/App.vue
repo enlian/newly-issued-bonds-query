@@ -212,11 +212,11 @@
             check(index, value = '0') {
                 let num = 0;
 
-                if (value.length < 4 || isContinuationInteger(value)) {
-                    //一定没中签
-                    this.$set(this.data, index, {...this.data[index], active: false});
-                    return;
-                }
+                // if (isContinuationInteger(value)) {
+                //     //一定没中签
+                //     this.$set(this.data, index, {...this.data[index], active: false});
+                //     return;
+                // }
 
                 value = value.toString();
                 let data = this.data[index].values;
@@ -238,7 +238,7 @@
 
                     let max = newValue + 1000;
                     let min = newValue - 1;
-                    if (newValue > 9000 && newValue.toString().length === 4) {
+                    if ((newValue > 9000 && newValue.toString().length === 4)||newValue.toString().length === 3) {
                         max = parseInt((newValue + 1000).toString().substring(1));
                         min = 0
                     }
