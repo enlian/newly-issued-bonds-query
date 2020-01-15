@@ -209,59 +209,45 @@
                 this.data = response;
                 this.loading = false;
             },
-            check(index, value = '0') {
-                let num = 0;
+            check(index, init = 0){
+                const count = 1000;
+                const filter = this.data[index].values;
+                var lucky_number = [];
 
-                // if (isContinuationInteger(value)) {
-                //     //一定没中签
-                //     this.$set(this.data, index, {...this.data[index], active: false});
-                //     return;
-                // }
+                init = parseInt(init);
 
-                value = value.toString();
-                let data = this.data[index].values;
-                let luckIndex = 0;
+                for(var my = init; my < init+count; my++){
 
-                for (let i = 0; i < data.length; i++) {
-                    let newValue = value;
-                    let newI = data[i];
+                    for(var indexFilter = 0; indexFilter < filter.length; indexFilter++){
+                        if (my.toString().endsWith(filter[indexFilter]) ){
+                            lucky_number.push(my);
+                            break;
+                        }
 
-                    if (newValue.length > newI.length) {
-                        newValue = newValue.substr(newValue.length - newI.length);
-                    } else if (newI.length > newValue.length) {
-                        newI = newI.substr(newI.length - newValue.length);
-                    }
-
-                    newValue = parseInt(newValue);
-                    newI = parseInt(newI);
-                    luckIndex = index;
-
-                    let max = newValue + 1000;
-                    let min = newValue - 1;
-                    if ((newValue > 9000 && newValue.toString().length === 4)||newValue.toString().length === 3) {
-                        max = parseInt((newValue + 1000).toString().substring(1));
-                        min = 0
-                    }
-
-                    if (newI > min && newI < max) {
-                        // this.$set(this.data, index, {...this.data[index], active: data[i]});
-                        num++;
-                        luckIndex = index;
-                        // break;
-                    } else {
-                        // this.$set(this.data, index, {...this.data[index], active: false});
                     }
                 }
-                if (num > 0) {
-                    this.$set(this.data, luckIndex, {...this.data[luckIndex], active: true});
+                //console.debug(filter)
+                //console.debug(lucky_number)
+                var result = "共中{0}签。".replace("{0}", lucky_number.length);
+                if(lucky_number.length > 0){
+                    result = "恭喜您中签了！" + result + "中签号码如下："+'\n'
+                    result = result + lucky_number.join(', ')
+
+                    this.$set(this.data, index, {...this.data[index], active: true});
                     this.$message({
-                        message: `恭喜！${this.data[index].name}中${num}签`,
+                        message: result,
                         type: 'success'
                     });
-                } else {
-                    this.$set(this.data, luckIndex, {...this.data[luckIndex], active: false});
+                }else{
+                    this.$set(this.data, index, {...this.data[index], active: false});
                 }
-            }
+
+
+                result = result + '\n'
+                    + "配号起止数字：{1} ~ {2}"
+                        .replace("{1}", init.toString())
+                        .replace("{2}", (init+count-1).toString())
+            },
         }
     }
 </script>
