@@ -230,8 +230,8 @@
                 //console.debug(lucky_number)
                 var result = "共中{0}签。".replace("{0}", lucky_number.length);
                 if(lucky_number.length > 0){
-                    result = "恭喜您中签了！" + result + "中签号码如下："+'\n'
-                    result = result + lucky_number.join(', ')
+                    result = "恭喜您中签了！" + result + "中签号码：";
+                    result = result + lucky_number.join(', ');
 
                     this.$set(this.data, index, {...this.data[index], active: true});
                     this.$message({
@@ -241,12 +241,6 @@
                 }else{
                     this.$set(this.data, index, {...this.data[index], active: false});
                 }
-
-
-                result = result + '\n'
-                    + "配号起止数字：{1} ~ {2}"
-                        .replace("{1}", init.toString())
-                        .replace("{2}", (init+count-1).toString())
             },
         }
     }
