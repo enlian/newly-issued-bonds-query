@@ -35,19 +35,20 @@ exports.run = function () {
             res = JSON.parse(res.text);
 
             if (_.get(res, 'status_code') === 0) {
+                let day0 = moment(new Date()).add(0, 'days').format('YYYY-MM-DD');
                 let day1 = moment(new Date()).add(-1, 'days').format('YYYY-MM-DD');
                 let day2 = moment(new Date()).add(-2, 'days').format('YYYY-MM-DD');
                 let day3 = moment(new Date()).add(-3, 'days').format('YYYY-MM-DD');
-                let day4 = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
+                // let day4 = moment(new Date()).add(1, 'days').format('YYYY-MM-DD');
 
-                let todayRate = [];
+                // let todayRate = [];
 
                 const list = _.filter(res.list, (i) => {
                     const date = i.sub_date;
-                    if(day4 === i.sign_date){
-                        todayRate.push({name:i.name,successRate:i.success_rate})
-                    }
-                    return date === day1 || date === day2 || date === day3
+                    // if(day4 === i.sign_date){
+                    //     todayRate.push({name:i.name,successRate:i.success_rate})
+                    // }
+                    return date === day0 || date === day1 || date === day2 || date === day3
                 });
                 // const promiseArray = [getNums1(todayRate&&todayRate.length>0?todayRate:null)];
                 const promiseArray = [];
